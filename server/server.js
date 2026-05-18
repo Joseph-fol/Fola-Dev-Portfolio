@@ -2,9 +2,14 @@ import express from 'express';
 import cors from 'cors';
 import mongoose from 'mongoose';
 import dotenv from 'dotenv';
+import dns from 'node:dns';
 
 // Load environment variables
 dotenv.config();
+
+// Configure DNS for better SRV resolution
+dns.setDefaultResultOrder('ipv4first');
+dns.setServers(['8.8.8.8', '8.8.4.4']);
 
 // Import routes
 import projectRoutes from './routes/projects.js';
@@ -19,16 +24,34 @@ const PORT = process.env.PORT || 5000;
 app.use(cors());
 app.use(express.json());
 
-// MongoDB Connection
-mongoose
-  .connect(process.env.MONGODB_URI || 'mongodb://localhost:27017/portfolio')
-  .then(() => {
-    console.log('✓ MongoDB connected successfully');
-  })
-  .catch((err) => {
-    console.error('✗ MongoDB connection error:', err.message);
-    process.exit(1);
-  });
+// MongoDB Connection with fallback
+const connectDB = async () => {
+  const mongoOptions = {
+    serverSelectionTimeoutMS: 5000,
+    socketTimeoutMS: 45000,
+    retryWrites: true,
+  };
+
+  try {
+    // Try Atlas connection first
+    await mongoose.connect(process.env.MONGODB_URI, mongoOptions);
+    console.log('✓ MongoDB connected successfully to Atlas');
+  } catch (err) {
+    console.warn('⚠ Atlas connection failed:', err.message);
+    console.log('↻ Attempting fallback to local MongoDB...');
+    try {
+      await mongoose.connect('mongodb://localhost:27017/portfolio', mongoOptions);
+      console.log('✓ Connected to local MongoDB successfully');
+    } catch (fallbackErr) {
+      console.error('✗ MongoDB connection failed (both Atlas and local):', fallbackErr.message);
+      console.error('  → Start MongoDB locally: mongod');
+      console.error('  → Or verify MONGODB_URI in .env is valid');
+      process.exit(1);
+    }
+  }
+};
+
+connectDB();
 
 // Routes
 app.use('/api/projects', projectRoutes);
