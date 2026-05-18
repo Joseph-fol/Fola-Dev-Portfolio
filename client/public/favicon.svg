@@ -1,0 +1,17 @@
+<svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
+  <!-- Background -->
+  <rect width="100" height="100" fill="rgba(230, 242, 255, 1)"/>
+  
+  <!-- 2x2 Grid of Windows 12 colors -->
+  <!-- Top Left: Blue -->
+  <rect x="10" y="10" width="35" height="35" fill="#1a6ef5" rx="2"/>
+  
+  <!-- Top Right: Green -->
+  <rect x="55" y="10" width="35" height="35" fill="#90c850" rx="2"/>
+  
+  <!-- Bottom Left: Yellow -->
+  <rect x="10" y="55" width="35" height="35" fill="#ffd700" rx="2"/>
+  
+  <!-- Bottom Right: Pink/Magenta -->
+  <rect x="55" y="55" width="35" height="35" fill="#e050a0" rx="2"/>
+</svg>
