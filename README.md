@@ -100,7 +100,7 @@ The frontend is configured to proxy API calls to the backend automatically via V
 ```
 MY PROJECT PORTFOLIO/
 ├── server/
-│   ├── models/
+|   ├── models/
 │   │   ├── User.js          # User schema with password hashing
 │   │   ├── Project.js       # Project schema (title, description, tech, urls)
 │   │   └── Message.js       # Contact message schema
