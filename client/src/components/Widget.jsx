@@ -130,17 +130,17 @@ export default function Widget({
         zIndex: Math.min(Math.max(windowState.zIndex, 100), 9000),
         pointerEvents: windowState.isMinimized ? 'none' : 'auto',
         borderRadius: windowState.isMaximized ? 10 : 14,
-        background: 'rgba(238, 247, 255, 0.78)',
-        border: '1px solid rgba(255, 255, 255, 0.85)',
+        background: 'var(--surface-bg)',
+        border: '1px solid var(--surface-border)',
         backdropFilter: 'blur(24px)',
         boxShadow: windowState.isFocused
-          ? '0 8px 32px rgba(26,110,245,0.18)'
-          : '0 14px 36px rgba(54, 91, 135, 0.12)',
+          ? '0 8px 32px var(--surface-shadow)'
+          : '0 14px 36px var(--surface-shadow)',
       }}
     >
       <div
         className="flex h-11 flex-shrink-0 items-center gap-3 border-b px-3"
-        style={{ borderColor: 'rgba(151, 181, 214, 0.35)', cursor: windowState.isMaximized ? 'default' : 'grab' }}
+        style={{ borderColor: 'var(--surface-border)', cursor: windowState.isMaximized ? 'default' : 'grab' }}
         onPointerDown={(event) => {
           if (event.button !== 0) return;
           focusWindow(id);
@@ -155,7 +155,7 @@ export default function Widget({
           {WindowIcon && <WindowIcon size={16} aria-hidden="true" />}
         </div>
 
-        <div className="min-w-0 flex-1 text-sm font-semibold" style={{ color: '#1a3870' }}>
+        <div className="min-w-0 flex-1 text-sm font-semibold" style={{ color: 'var(--surface-text-primary)' }}>
           {title || windowState.title}
         </div>
 
@@ -194,7 +194,7 @@ export default function Widget({
         </div>
       </div>
 
-      <div className="min-h-0 flex-1 overflow-auto p-4" style={{ color: '#1a3870' }}>
+      <div className="min-h-0 flex-1 overflow-auto p-4" style={{ color: 'var(--surface-text-primary)' }}>
         {children}
       </div>
 

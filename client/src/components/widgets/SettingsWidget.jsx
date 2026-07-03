@@ -27,7 +27,7 @@ function Toggle({ checked, onChange }) {
       type="button"
       onClick={() => onChange(!checked)}
       className="relative h-6 w-11 rounded-full transition-colors"
-      style={{ background: checked ? 'var(--accent-color)' : 'rgba(88, 115, 151, 0.28)' }}
+      style={{ background: checked ? 'var(--accent-color)' : 'var(--surface-muted)' }}
     >
       <span
         className="absolute top-1 h-4 w-4 rounded-full bg-white shadow transition-transform"
@@ -44,9 +44,9 @@ export default function SettingsWidget() {
 
   return (
     <Widget id="settings" title="Settings" icon={IconSettings} iconBg="#1a6ef5">
-      <div className="flex h-full min-h-[460px] overflow-hidden rounded-lg bg-white/25">
-        <aside className="w-52 flex-shrink-0 border-r border-white/45 p-3">
-          <div className="mb-4 text-lg font-semibold text-[#1a3870]">Settings</div>
+      <div className="flex h-full min-h-[460px] overflow-hidden rounded-lg" style={{ background: 'var(--surface-accent)' }}>
+        <aside className="w-52 flex-shrink-0 border-r p-3" style={{ borderColor: 'var(--surface-border)' }}>
+          <div className="mb-4 text-lg font-semibold" style={{ color: 'var(--surface-text-primary)' }}>Settings</div>
           <div className="space-y-1">
             {CATEGORIES.map(({ id, label, Icon }) => (
               <button
@@ -55,8 +55,8 @@ export default function SettingsWidget() {
                 onClick={() => setActive(id)}
                 className="flex w-full items-center gap-3 rounded-lg px-3 py-2 text-left text-sm font-medium"
                 style={{
-                  background: active === id ? 'rgba(26, 110, 245, 0.16)' : 'transparent',
-                  color: active === id ? 'var(--accent-color)' : '#1a3870',
+                  background: active === id ? 'var(--surface-accent)' : 'transparent',
+                  color: active === id ? 'var(--accent-color)' : 'var(--surface-text-primary)',
                 }}
               >
                 <Icon size={17} />
@@ -80,11 +80,14 @@ export default function SettingsWidget() {
                       className="rounded-lg border p-2 text-left"
                       style={{
                         borderColor: settings.backgroundId === background.id ? 'var(--accent-color)' : 'rgba(255,255,255,0.55)',
-                        background: 'rgba(255,255,255,0.28)',
+                        background: 'rgba(255,255,255,0.12)',
+                        color: '#fff',
                       }}
                     >
-                      <div className="h-16 rounded-md" style={{ background: background.thumbnail }} />
-                      <div className="mt-2 text-xs font-semibold">{background.name}</div>
+                      <div className="relative h-16 overflow-hidden rounded-md" style={{ background: background.thumbnail }}>
+                        <div className="absolute inset-0 bg-gradient-to-t from-black/55 via-black/15 to-transparent" />
+                      </div>
+                      <div className="mt-2 text-xs font-semibold text-white">{background.name}</div>
                     </button>
                   ))}
                 </div>
@@ -113,7 +116,7 @@ export default function SettingsWidget() {
               <div className="flex items-center justify-between rounded-lg bg-white/35 p-4">
                 <div>
                   <div className="font-semibold">Dark Mode</div>
-                  <div className="text-xs text-[#587397]">Switch the desktop to a dark navy theme.</div>
+                  <div className="text-xs" style={{ color: 'var(--surface-text-secondary)' }}>Switch the desktop to a dark navy theme.</div>
                 </div>
                 <Toggle checked={settings.darkMode} onChange={(darkMode) => setSettings({ darkMode })} />
               </div>
@@ -147,7 +150,7 @@ export default function SettingsWidget() {
                       className="rounded-lg px-4 py-2 text-sm capitalize"
                       style={{
                         background: settings.fontSize === size ? 'var(--accent-color)' : 'rgba(255,255,255,0.45)',
-                        color: settings.fontSize === size ? '#fff' : '#1a3870',
+                        color: settings.fontSize === size ? '#fff' : 'var(--surface-text-primary)',
                       }}
                     >
                       {size}
@@ -163,7 +166,7 @@ export default function SettingsWidget() {
               <div className="flex items-center justify-between rounded-lg bg-white/35 p-4">
                 <div>
                   <div className="font-semibold">12-hour clock</div>
-                  <div className="text-xs text-[#587397]">Updates taskbar and lock screen time.</div>
+                  <div className="text-xs" style={{ color: 'var(--surface-text-secondary)' }}>Updates taskbar and lock screen time.</div>
                 </div>
                 <Toggle
                   checked={settings.clockFormat === '12'}
@@ -180,7 +183,7 @@ export default function SettingsWidget() {
                   onChange={(event) => setSettings({ timeOffset: Number(event.target.value) })}
                   className="w-32 rounded-lg border border-white/60 bg-white/60 px-3 py-2 outline-none"
                 />
-                <span className="ml-2 text-sm text-[#587397]">hours</span>
+                <span className="ml-2 text-sm" style={{ color: 'var(--surface-text-secondary)' }}>hours</span>
               </label>
             </div>
           )}
@@ -188,15 +191,15 @@ export default function SettingsWidget() {
           {active === 'about' && (
             <div className="space-y-4">
               <div className="rounded-lg bg-white/35 p-4">
-                <div className="text-sm text-[#587397]">OS Name</div>
+                <div className="text-sm" style={{ color: 'var(--surface-text-secondary)' }}>OS Name</div>
                 <div className="text-xl font-semibold">Windows 12 Portfolio OS</div>
               </div>
               <div className="rounded-lg bg-white/35 p-4">
-                <div className="text-sm text-[#587397]">Version</div>
+                <div className="text-sm" style={{ color: 'var(--surface-text-secondary)' }}>Version</div>
                 <div className="font-semibold">1.0.0</div>
               </div>
               <div className="rounded-lg bg-white/35 p-4">
-                <div className="text-sm text-[#587397]">Developer</div>
+                <div className="text-sm" style={{ color: 'var(--surface-text-secondary)' }}>Developer</div>
                 <div className="font-semibold">Your Name</div>
               </div>
               <button

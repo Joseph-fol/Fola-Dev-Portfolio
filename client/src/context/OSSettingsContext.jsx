@@ -1,4 +1,5 @@
 import { createContext, useContext, useLayoutEffect, useMemo, useState } from 'react';
+import { getBackground } from '../config/backgrounds';
 
 export const SETTINGS_KEY = 'portfolioOS_settings';
 
@@ -38,6 +39,7 @@ function readSettings() {
 
 export function OSSettingsProvider({ children }) {
   const [settings, setSettingsState] = useState(readSettings);
+  const activeBackground = getBackground(settings.backgroundId);
 
   const setSettings = (patch) => {
     setSettingsState((prev) => {
@@ -50,7 +52,15 @@ export function OSSettingsProvider({ children }) {
   useLayoutEffect(() => {
     document.documentElement.style.setProperty('--accent-color', settings.accentColor);
     document.documentElement.style.setProperty('--base-font-size', FONT_SIZES[settings.fontSize] || FONT_SIZES.medium);
-  }, [settings.accentColor, settings.fontSize]);
+    document.documentElement.style.setProperty('--surface-text-primary', activeBackground.theme.textPrimary);
+    document.documentElement.style.setProperty('--surface-text-secondary', activeBackground.theme.textSecondary);
+    document.documentElement.style.setProperty('--surface-bg', activeBackground.theme.surface);
+    document.documentElement.style.setProperty('--surface-bg-strong', activeBackground.theme.surfaceStrong);
+    document.documentElement.style.setProperty('--surface-border', activeBackground.theme.surfaceBorder);
+    document.documentElement.style.setProperty('--surface-muted', activeBackground.theme.surfaceMuted);
+    document.documentElement.style.setProperty('--surface-shadow', activeBackground.theme.shadow);
+    document.documentElement.style.setProperty('--surface-accent', activeBackground.theme.accentSurface);
+  }, [activeBackground, settings.accentColor, settings.fontSize]);
 
   const value = useMemo(() => ({ settings, setSettings }), [settings]);
   return <OSSettingsContext.Provider value={value}>{children}</OSSettingsContext.Provider>;

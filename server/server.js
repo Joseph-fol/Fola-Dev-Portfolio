@@ -2,10 +2,10 @@ import express from 'express';
 import cors from 'cors';
 import mongoose from 'mongoose';
 import dotenv from 'dotenv';
+import dns from 'node:dns'
 dotenv.config();
 
 // Configure DNS for better SRV resolution
-const dns = require("node:dns")
 dns.setDefaultResultOrder('ipv4first');
 dns.setServers(['8.8.8.8', '8.8.4.4']);
 

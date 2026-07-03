@@ -22,8 +22,8 @@ function Tile({ Icon, label, sublabel, active, disabled, onClick }) {
       onClick={onClick}
       className="flex min-h-[74px] flex-col items-start justify-between rounded-xl p-3 text-left transition"
       style={{
-        background: active ? 'var(--accent-color)' : 'rgba(255,255,255,0.45)',
-        color: active ? '#fff' : '#1a3870',
+        background: active ? 'var(--accent-color)' : 'var(--surface-muted)',
+        color: active ? '#fff' : 'var(--surface-text-primary)',
         opacity: disabled ? 0.45 : 1,
       }}
     >
@@ -50,10 +50,10 @@ export default function QuickSettings({ onClose }) {
       transition={{ type: 'spring', stiffness: 430, damping: 32 }}
       className="fixed bottom-20 right-4 z-[9998] w-80 overflow-hidden rounded-2xl p-4 shadow-2xl"
       style={{
-        background: 'rgba(238, 247, 255, 0.86)',
-        border: '1px solid rgba(255,255,255,0.9)',
+        background: 'var(--surface-bg-strong)',
+        border: '1px solid var(--surface-border)',
         backdropFilter: 'blur(24px)',
-        color: '#1a3870',
+        color: 'var(--surface-text-primary)',
       }}
       onClick={(event) => event.stopPropagation()}
     >
@@ -98,7 +98,7 @@ export default function QuickSettings({ onClose }) {
         <Tile Icon={IconAccessible} label="Access" sublabel="Ready" active={false} onClick={() => {}} />
       </div>
 
-      <div className="mt-4 space-y-3 rounded-xl bg-white/35 p-3">
+      <div className="mt-4 space-y-3 rounded-xl p-3" style={{ background: 'var(--surface-accent)' }}>
         <label className="flex items-center gap-3">
           <IconSun size={18} />
           <input
@@ -126,7 +126,7 @@ export default function QuickSettings({ onClose }) {
       <div className="mt-4 flex items-center justify-between text-xs">
         <div>
           <div className="font-semibold">87% battery</div>
-          <div className="text-[#587397]">{settings.wifiOn && !wifiDisabled ? 'Portfolio_Network' : 'No network'}</div>
+          <div style={{ color: 'var(--surface-text-secondary)' }}>{settings.wifiOn && !wifiDisabled ? 'Portfolio_Network' : 'No network'}</div>
         </div>
         <button
           type="button"

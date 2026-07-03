@@ -39,22 +39,22 @@ export default function StartMenu({ onClose, onShutdown }) {
       transition={{ type: 'spring', stiffness: 440, damping: 34 }}
       className="fixed bottom-20 left-1/2 z-[2600] w-80 -translate-x-1/2 overflow-hidden rounded-2xl shadow-2xl"
       style={{
-        background: 'rgba(238, 247, 255, 0.82)',
-        border: '1px solid rgba(255, 255, 255, 0.88)',
+        background: 'var(--surface-bg-strong)',
+        border: '1px solid var(--surface-border)',
         backdropFilter: 'blur(24px)',
-        color: '#1a3870',
+        color: 'var(--surface-text-primary)',
       }}
       onClick={(event) => event.stopPropagation()}
     >
-      <div className="border-b border-white/45 p-4">
-        <div className="flex items-center gap-2 rounded-lg bg-white/55 px-3 py-2">
-          <IconSearch size={16} className="text-[#587397]" />
+      <div className="border-b p-4" style={{ borderColor: 'var(--surface-border)' }}>
+        <div className="flex items-center gap-2 rounded-lg px-3 py-2" style={{ background: 'var(--surface-muted)' }}>
+          <IconSearch size={16} style={{ color: 'var(--surface-text-secondary)' }} />
           <input className="w-full bg-transparent text-sm outline-none" placeholder="Search apps" />
         </div>
       </div>
 
       <div className="p-4">
-        <div className="mb-3 text-xs font-semibold uppercase text-[#587397]">Pinned</div>
+        <div className="mb-3 text-xs font-semibold uppercase" style={{ color: 'var(--surface-text-secondary)' }}>Pinned</div>
         <div className="grid grid-cols-3 gap-3">
           {PINNED_APPS.map((app) => (
             <motion.button
@@ -75,7 +75,7 @@ export default function StartMenu({ onClose, onShutdown }) {
         </div>
       </div>
 
-      <div className="relative flex items-center justify-between border-t border-white/45 bg-[#1a6ef5]/5 px-4 py-3">
+      <div className="relative flex items-center justify-between border-t px-4 py-3" style={{ borderColor: 'var(--surface-border)', background: 'var(--surface-accent)' }}>
         <div className="flex items-center gap-2">
           <div className="flex h-9 w-9 items-center justify-center rounded-full bg-gradient-to-br from-[#1a6ef5] to-[#9050d0] text-sm font-semibold text-white">
             YN
@@ -98,11 +98,12 @@ export default function StartMenu({ onClose, onShutdown }) {
               initial={{ opacity: 0, y: 8 }}
               animate={{ opacity: 1, y: 0 }}
               exit={{ opacity: 0, y: 8 }}
-              className="absolute bottom-14 right-4 w-36 overflow-hidden rounded-lg bg-white/90 shadow-xl"
+              className="absolute bottom-14 right-4 w-36 overflow-hidden rounded-lg shadow-xl"
+              style={{ background: 'var(--surface-bg-strong)' }}
             >
-              <button className="w-full px-3 py-2 text-left text-sm hover:bg-[#d8e8f8]" onClick={() => setShowPower(false)}>Sleep</button>
-              <button className="w-full px-3 py-2 text-left text-sm hover:bg-[#d8e8f8]" onClick={() => window.location.reload()}>Restart</button>
-              <button className="w-full px-3 py-2 text-left text-sm hover:bg-[#d8e8f8]" onClick={onShutdown}>Shut Down</button>
+              <button className="w-full px-3 py-2 text-left text-sm hover:bg-white/10" onClick={() => setShowPower(false)}>Sleep</button>
+              <button className="w-full px-3 py-2 text-left text-sm hover:bg-white/10" onClick={() => window.location.reload()}>Restart</button>
+              <button className="w-full px-3 py-2 text-left text-sm hover:bg-white/10" onClick={onShutdown}>Shut Down</button>
             </motion.div>
           )}
         </AnimatePresence>
